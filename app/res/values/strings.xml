@@ -4,5 +4,6 @@
     <string name="app_name">LearnGerman</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="greeting">Welcome to Learn German.\n Please Log In or press Skip button</string>
 
 </resources>
