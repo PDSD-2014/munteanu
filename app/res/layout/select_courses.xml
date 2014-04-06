@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.02"
+        android:text="Welcome back, please select a option below"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/selectwords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Words" />
+
+    <Button
+        android:id="@+id/starttraining"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.00"
+        android:text="Start Training" />
+
+    <Button
+        android:id="@+id/viewstatistics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Statistics" />
+
+</LinearLayout>

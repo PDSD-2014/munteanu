@@ -22,6 +22,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:name="com.example.learngerman.SelectCourseActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        <activity
+            android:name="com.example.learngerman.SelectListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        <activity
+            android:name="com.example.learngerman.TrainingActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        <activity
+            android:name="com.example.learngerman.StatisticsActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
     </application>
 
 </manifest>

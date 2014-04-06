@@ -1,12 +1,16 @@
 package com.example.learngerman;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
 	private Context myContext;
 	@Override
@@ -15,6 +19,32 @@ public class MainActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_main);
 		this.myContext = this;
 
+
+		Button skip  = (Button)findViewById(R.id.skip);
+
+		skip.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent in = new Intent(myContext, SelectCourseActivity.class);
+
+				startActivity(in);
+			}
+
+		});
+
+		Button login  = (Button)findViewById(R.id.login);
+
+		skip.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent in = new Intent(myContext, SelectCourseActivity.class);
+
+				startActivity(in);
+			}
+
+		});
 	}
 
 	@Override
