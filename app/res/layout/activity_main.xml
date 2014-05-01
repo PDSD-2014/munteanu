@@ -16,7 +16,7 @@
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.09"
+            android:layout_weight="0.06"
             android:gravity="center_vertical|center"
             android:text="@string/greeting" />
 
@@ -24,7 +24,7 @@
             android:id="@+id/imageView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.26"
+            android:layout_weight="0.25"
             android:src="@drawable/germany" />
 
         <LinearLayout
@@ -75,8 +75,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:windowSoftInputMode="stateVisible"
-            android:layout_weight="0.10" >
+            android:windowSoftInputMode="stateVisible" >
 
             <Button
                 android:id="@+id/login"
@@ -86,13 +85,29 @@
                 android:text="Log In" />
 
             <Button
-                android:id="@+id/skip"
+                android:id="@+id/sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.56"
-                android:text="Skip" />
+                android:layout_weight="0.47"
+                android:text="Sign up" />
+
         </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="58dp" >
+
+                <Button
+                    android:id="@+id/skip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.56"
+                    android:text="Skip" />
+
+            </LinearLayout>
+            
     </LinearLayout>
+
+
 
 </FrameLayout>

@@ -1,6 +1,8 @@
 package com.example.learngerman;
 
+import utils.ServerRequests;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +15,13 @@ import android.widget.Button;
 public class MainActivity extends Activity {
 
 	private Context myContext;
+	ProgressDialog dialog;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		this.myContext = this;
+
 
 
 		Button skip  = (Button)findViewById(R.id.skip);
@@ -35,16 +39,31 @@ public class MainActivity extends Activity {
 
 		Button login  = (Button)findViewById(R.id.login);
 
-		skip.setOnClickListener(new OnClickListener() {
+		login.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent in = new Intent(myContext, SelectCourseActivity.class);
+				String loading = "Checking data";
+				ServerRequests sr = new ServerRequests();
 
-				startActivity(in);
+				sr.makeRequest();
+					dialog =new ProgressDialog(myContext);
+					dialog.setMessage(loading);
+					dialog.setCancelable(false);
+					dialog.setInverseBackgroundForced(false);
+					dialog.show();
+
+
 			}
 
 		});
+	}
+
+	public void startNextActivity(){
+
+		dialog.hide();
+		Intent in = new Intent(myContext, SelectCourseActivity.class);
+		startActivity(in);
 	}
 
 	@Override
