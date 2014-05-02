@@ -1,5 +1,6 @@
 package com.example.learngerman;
 
+import utils.BigDownload;
 import utils.ServerRequests;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
@@ -22,16 +24,13 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		this.myContext = this;
 
-
-
 		Button skip  = (Button)findViewById(R.id.skip);
 
 		skip.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent in = new Intent(myContext, SelectCourseActivity.class);
-
+				Intent in = new Intent(myContext, BigDownload.class);
 				startActivity(in);
 			}
 
@@ -45,14 +44,15 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				String loading = "Checking data";
 				ServerRequests sr = new ServerRequests();
+				String username = ((EditText)findViewById(R.id.username)).getText().toString();
+				String pass = ((EditText)findViewById(R.id.password)).getText().toString();
+				sr.makeRequest(username, pass, (MainActivity)myContext);
 
-				sr.makeRequest();
 					dialog =new ProgressDialog(myContext);
 					dialog.setMessage(loading);
 					dialog.setCancelable(false);
 					dialog.setInverseBackgroundForced(false);
 					dialog.show();
-
 
 			}
 
@@ -61,7 +61,7 @@ public class MainActivity extends Activity {
 
 	public void startNextActivity(){
 
-		dialog.hide();
+		dialog.dismiss();
 		Intent in = new Intent(myContext, SelectCourseActivity.class);
 		startActivity(in);
 	}
