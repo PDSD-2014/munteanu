@@ -89,7 +89,8 @@ public class BigDownload {
 
             // Close progress dialog
             Dialog.dismiss();
-            Log.d("BigDownload", Content);
+//            Log.d("BigDownload", Content);
+            Log.d("JSON",JsonParser.parseMyJson(Content).toString());
 
 //            if (Error != null) {
 //

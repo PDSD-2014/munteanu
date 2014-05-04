@@ -19,4 +19,9 @@ public class LearnItem {
 		this.translation = translation;
 		this.correctAnswer = correctAnswer;
 	}
+
+	@Override
+	public String toString(){
+		return correctAnswer + " " + upperMessage + " " + translation;
+	}
 }
