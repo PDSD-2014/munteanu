@@ -45,7 +45,6 @@ public class HandleUsers {
 
 	public boolean isValidUser(String username, String password)
 	{
-		System.out.println("Comparing" + username + " " + password);
 		if(!userList.containsKey(username))
 			return false;
 

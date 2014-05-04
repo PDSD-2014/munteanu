@@ -115,6 +115,9 @@ class SingleThreadedServer implements Runnable {
 	public String ParseCommand(HashMap<String, String> params){
 		String resp = "Fail";
 
+		if(!params.containsKey("type"))
+			return resp;
+
 		if(params.get("type").compareTo("authentication") == 0){
 			if(hUsers.isValidUser(params.get("user"), params.get("pass")))
 				return "Success";
