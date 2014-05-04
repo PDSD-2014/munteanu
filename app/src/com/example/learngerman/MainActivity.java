@@ -66,6 +66,11 @@ public class MainActivity extends Activity {
 		startActivity(in);
 	}
 
+	public void loginFailed(String msg){
+		dialog.dismiss();
+
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

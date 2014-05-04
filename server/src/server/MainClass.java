@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
@@ -18,6 +19,8 @@ class SingleThreadedServer implements Runnable {
 
 	// For a TCP connection (i. a server) we need a ServerSocket
 	private ServerSocket in;
+	HandleUsers hUsers;
+	ContentManager cManager;
 	static String rsp =
 	    "HTTP/1.1 200 OK\r\n" +
 	    "Server: WebServer\r\n" +
@@ -27,9 +30,12 @@ class SingleThreadedServer implements Runnable {
 	    "\r\n" +
 	    "Success";
 
-
 	// In the constructor we try creating the server socket, on port 9000.
 	public SingleThreadedServer() {
+
+		hUsers = new HandleUsers();
+		cManager = new ContentManager();
+
 		try {
 			// Beware: Only privileged users can use ports below 1023.
 			in = new ServerSocket(9000);
@@ -56,30 +62,16 @@ class SingleThreadedServer implements Runnable {
 			// When accept() returns a new request was received.
 			// We use the incomingRequest socket for I/O
 			System.out.println("New request from: " + incomingRequest.getInetAddress());
-
-//	        try {
-//				BufferedReader in = new BufferedReader(new InputStreamReader(
-//				        incomingRequest.getInputStream()));
-//
-//				String str = in.readLine();
-//
-//				while(str != null){
-//					System.out.println(str);
-//					str = in.readLine();
-//				}
-//
-//			} catch (IOException e1) {
-//				e1.printStackTrace();
-//			}
-
+			DefaultBHttpServerConnection conn;
+			HashMap<String, String> params = null;
 			try{
-			DefaultBHttpServerConnection conn = new DefaultBHttpServerConnection(100);
+			conn = new DefaultBHttpServerConnection(100);
 			conn.bind(incomingRequest);
 			HttpRequest request = conn.receiveRequestHeader();
 			conn.receiveRequestEntity((HttpEntityEnclosingRequest)request);
 			HttpEntity entity = ((HttpEntityEnclosingRequest)request).getEntity();
-//			System.out.println(EntityUtils.toString(entity));
-			Utils.parseResponse(EntityUtils.toString(entity));
+			params = ServerUtils.parseResponse(EntityUtils.toString(entity));
+			System.out.println(params.toString());
 //			conn.close();
 			} catch(Exception e){
 
@@ -94,7 +86,7 @@ class SingleThreadedServer implements Runnable {
 
 			// Wrap it with a PrinStream for convenience.
 			PrintStream writer = new PrintStream(responseStream);
-			writer.print(rsp);
+			writer.print(httpFormat(ParseCommand(params)));
 
 			// Make sure data is sent and allocated resources are cleared.
 			try {
@@ -109,10 +101,40 @@ class SingleThreadedServer implements Runnable {
 
 	}
 
+	public String httpFormat(String data){
+		String rsp =
+			    "HTTP/1.1 200 OK\r\n" +
+			    "Server: WebServer\r\n" +
+			    "Content-Type: text/html\r\n" +
+			    "Content-Length:" + data.length() +"\r\n" +
+			    "\r\n" +
+			    data;
+		return rsp;
+	}
+
+	public String ParseCommand(HashMap<String, String> params){
+		String resp = "Fail";
+
+		if(params.get("type").compareTo("authentication") == 0){
+			if(hUsers.isValidUser(params.get("user"), params.get("pass")))
+				return "Success";
+			else
+				return "Fail";
+		}
+
+		if(params.get("type").compareTo("content") == 0){
+			return cManager.getDataInJSon();
+		}
+
+
+		return resp;
+	}
+
 }
 public class MainClass {
 
 //	private final static String TAG = "MainActivity";
+
 
 	public static void main(String[] args){
 		Thread greetingServer = new Thread(new SingleThreadedServer());

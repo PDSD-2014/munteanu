@@ -14,14 +14,16 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.learngerman.MainActivity;
 
 public class ServerRequests {
 	TextView tw;
-
+	Handler h = new Handler();
 
 	private class RequestMaker implements Runnable{
 
@@ -53,6 +55,20 @@ public class ServerRequests {
 
 		                    if(data.contains("Success"))
 		                    	callBack.startNextActivity();
+		                    else {
+		                    	h.post(new Runnable(){
+
+									@Override
+									public void run() {
+										Toast toast = Toast.makeText(callBack,
+												"Username or password incorrect",
+												Toast.LENGTH_SHORT);
+										toast.show();
+									}
+
+		                    	});
+		                    	callBack.loginFailed("");
+		                    }
 
 		                }
 
