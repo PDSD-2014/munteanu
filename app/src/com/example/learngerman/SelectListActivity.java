@@ -2,29 +2,24 @@ package com.example.learngerman;
 
 import java.util.ArrayList;
 
+import utils.DataB;
 import utils.MyAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 public class SelectListActivity extends Activity{
 
 	Context myContext;
-
-    String[] strmovies = new String[] {
-    		"Basic 50 WOrds",
-    		"Animals",
-    		"House",
-    		"People",
-    		"Party"
-        };
+	DataB database;
+	ArrayList<String> lessons;
 
 	public SelectListActivity(){
+		database = new DataB(this);
 
 	}
 
@@ -32,15 +27,13 @@ public class SelectListActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.select_list);
 		this.myContext = this;
+		lessons = (ArrayList<String>)database.getIndex();
 
 		ListView lw = (ListView)findViewById(R.id.listView1);
 
-        final ArrayList<String> movies = new ArrayList<String>();
-        for(int i=0; i < strmovies.length; i++)
-        	movies.add(strmovies[i]);
 
-    	final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, movies);
-		MyAdapter mya = new MyAdapter(myContext,R.layout.row_list, movies);
+//    	final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lessons);
+		MyAdapter mya = new MyAdapter(myContext,R.layout.row_list, lessons);
 
     	lw.setAdapter(mya);
 

@@ -22,9 +22,11 @@ import android.util.Log;
 
 public class BigDownload {
 	private Context myContext;
+	private DataB database;
 
 	public BigDownload(Context context){
 		myContext = context;
+		database = new DataB(context);
 	}
 
     public void getDataFromServer(){
@@ -91,6 +93,7 @@ public class BigDownload {
             Dialog.dismiss();
 //            Log.d("BigDownload", Content);
             Log.d("JSON",JsonParser.parseMyJson(Content).toString());
+            database.addAllData(JsonParser.parseMyJson(Content));
 
 //            if (Error != null) {
 //
