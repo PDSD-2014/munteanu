@@ -1,6 +1,5 @@
 package com.example.learngerman;
 
-import utils.BigDownload;
 import utils.ServerRequests;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -30,7 +29,7 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent in = new Intent(myContext, BigDownload.class);
+				Intent in = new Intent(myContext, SelectCourseActivity.class);
 				startActivity(in);
 			}
 

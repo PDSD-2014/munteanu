@@ -46,11 +46,6 @@
             android:label="@string/app_name" >
         </activity>
         
-        <activity
-            android:name="utils.BigDownload"
-            android:label="@string/app_name" >
-        </activity>
-        
     </application>
 
 </manifest>
