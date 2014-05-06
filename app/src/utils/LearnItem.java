@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 public class LearnItem {
 
-	String upperMessage;
-	ArrayList<String> options;
-	String translation;
-	String correctAnswer;
+	public String upperMessage;
+	public ArrayList<String> options;
+	public String translation;
+	public String correctAnswer;
+	boolean checked;
 
 	public LearnItem(String correctAnswer, String upperMessage, String translation){
 		options = new ArrayList<>();

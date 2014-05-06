@@ -108,6 +108,29 @@ public class DataB extends SQLiteOpenHelper {
       db.close();
   }
 
+  public List<LearnItem> getSelectedItems(ArrayList<String> selected)
+  {
+	  List<LearnItem> rez = new ArrayList<>();
+      SQLiteDatabase db = this.getWritableDatabase();
+	  for(String table : selected){
+	      String selectQuery = "SELECT  * FROM " + table;
+
+	      Cursor cursor = db.rawQuery(selectQuery, null);
+
+	      // face loop printre linii si adauga in lista
+	      if (cursor.moveToFirst()) {
+	          do {
+	              rez.add(new LearnItem(cursor.getString(1),
+	            		  				cursor.getString(2),
+	            		  				cursor.getString(3)
+	            		  				)
+	            		  );
+	          } while (cursor.moveToNext());
+	      }
+	  }
+
+	  return rez;
+  }
   public List<String> getIndex() {
       List<String> indexList = new ArrayList<String>();
 

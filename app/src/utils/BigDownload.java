@@ -32,7 +32,7 @@ public class BigDownload {
     public void getDataFromServer(){
         // Server Request URL
 //        String serverURL = "http://androidexample.com/media/webservice/getPage.php";
-    	String serverURL = "http://192.168.1.100:9000";
+    	String serverURL = "http://192.168.1.101:9000";
         // Create Object and call AsyncTask execute Method
         new LongOperation().execute(serverURL);
     }

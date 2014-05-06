@@ -1,10 +1,7 @@
 package utils;
 
 import java.util.ArrayList;
-
-import com.example.learngerman.R;
-import com.example.learngerman.R.id;
-import com.example.learngerman.R.layout;
+import java.util.HashSet;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,18 +12,21 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.example.learngerman.R;
+
 public class MyAdapter extends ArrayAdapter<String> {
 
     private ArrayList<String> items;
+    public static HashSet<String> selected = new HashSet<>();
     Context context;
 
     private OnClickListener pressed = new OnClickListener() {
         @Override
         public void onClick(View v) {
-//            if (((CheckBox) v).isChecked())
-//                items.get((Integer)v.getTag()).selected = true;
-//            else
-//                items.get((Integer)v.getTag()).selected = false;
+            if (((CheckBox) v).isChecked())
+                selected.add(items.get((Integer)v.getTag()));
+            else
+                selected.remove(items.get((Integer)v.getTag()));
 
         }
     };
