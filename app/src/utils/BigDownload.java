@@ -95,15 +95,7 @@ public class BigDownload {
             Log.d("JSON",JsonParser.parseMyJson(Content).toString());
             database.addAllData(JsonParser.parseMyJson(Content));
 
-//            if (Error != null) {
-//
-//                uiUpdate.setText("Output : "+Error);
-//
-//            } else {
-//
-//                uiUpdate.setText("Output : "+Content);
-//
-//             }
+
         }
 
     }

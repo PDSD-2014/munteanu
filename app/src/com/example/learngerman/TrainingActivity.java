@@ -8,7 +8,10 @@ import utils.LearnItem;
 import utils.MyAdapter;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff.Mode;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -49,34 +52,78 @@ public class TrainingActivity extends Activity {
 			toLearn = (ArrayList<LearnItem>) database.getSelectedItems(sel);
 			Log.d("Training", toLearn.toString());
 			totalItems = toLearn.size();
-			Button derButton = (Button)findViewById(R.id.derbutton);
+			final Button derButton = (Button)findViewById(R.id.derbutton);
 
 			derButton.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					boolean rez = checkCorrect("Der");
-					goNext(rez);
+					final boolean rez = checkCorrect("Der");
+					if(rez)
+						derButton.getBackground().setColorFilter(Color.GREEN, Mode.MULTIPLY);
+					else{
+						derButton.getBackground().setColorFilter(0xFFFF0000, Mode.MULTIPLY);
+						getButtonByName(currentItem.correctAnswer).getBackground().setColorFilter(Color.GREEN, Mode.MULTIPLY);
+					}
+					 new CountDownTimer(700, 700) {
+
+					     public void onTick(long millisUntilFinished) {
+					     }
+
+					     public void onFinish() {
+					    	 clearAllButtonColor();
+					         goNext(rez);
+					     }
+					  }.start();
 				}
 			});
 
-			Button dasButton = (Button)findViewById(R.id.dasbutton);
+			final Button dasButton = (Button)findViewById(R.id.dasbutton);
 
 			dasButton.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					goNext(checkCorrect("Das"));
+					final boolean rez = checkCorrect("Das");
+					if(rez)
+						dasButton.getBackground().setColorFilter(Color.GREEN, Mode.MULTIPLY);
+					else{
+						dasButton.getBackground().setColorFilter(0xFFFF0000, Mode.MULTIPLY);
+						getButtonByName(currentItem.correctAnswer).getBackground().setColorFilter(Color.GREEN, Mode.MULTIPLY);
+					}
+					 new CountDownTimer(700, 700) {
+
+					     public void onTick(long millisUntilFinished) {
+					     }
+
+					     public void onFinish() {
+					    	 clearAllButtonColor();
+					         goNext(rez);
+					     }
+					  }.start();
 				}
 			});
 
-			Button dieButton = (Button)findViewById(R.id.diebutton);
+			final Button dieButton = (Button)findViewById(R.id.diebutton);
 
 			dieButton.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					goNext(checkCorrect("Die"));
+					final boolean rez = checkCorrect("Die");
+					if(rez)
+						dieButton.getBackground().setColorFilter(Color.GREEN, Mode.MULTIPLY);
+					else{
+						dieButton.getBackground().setColorFilter(0xFFFF0000, Mode.MULTIPLY);
+						getButtonByName(currentItem.correctAnswer).getBackground().setColorFilter(Color.GREEN, Mode.MULTIPLY);
+					}
+					 new CountDownTimer(700, 700) {
+
+					     public void onTick(long millisUntilFinished) {
+					     }
+
+					     public void onFinish() {
+					    	 clearAllButtonColor();
+					         goNext(rez);
+					     }
+					  }.start();
 				}
 			});
 			currentItem = toLearn.remove(0);
@@ -136,5 +183,20 @@ public class TrainingActivity extends Activity {
 			rez = (Button)findViewById(Rid);
 		}
 		return rez;
+	}
+
+	public void clearAllButtonColor(){
+		Button bttn1 = (Button)findViewById(R.id.derbutton);
+
+		Button bttn2 = (Button)findViewById(R.id.dasbutton);
+
+		Button bttn3 = (Button)findViewById(R.id.diebutton);
+
+//		bttn1.getBackground().setColorFilter(Color.GRAY, Mode.MULTIPLY);
+//		bttn2.getBackground().setColorFilter(Color.GRAY, Mode.MULTIPLY);
+//		bttn3.getBackground().setColorFilter(Color.GRAY, Mode.MULTIPLY);
+		bttn1.getBackground().clearColorFilter();
+		bttn2.getBackground().clearColorFilter();
+		bttn3.getBackground().clearColorFilter();
 	}
 }
