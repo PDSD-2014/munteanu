@@ -76,10 +76,9 @@ public class DataB extends SQLiteOpenHelper {
 
 	    String CREATE_INDEX_TABLE = "CREATE TABLE  IF NOT EXISTS " + PREFIX + databaseName + "("
 	                + ID2_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+	                + ANSWER_KEY + " TEXT, "
 	                + WORD_KEY + " TEXT, "
-	                + TRANSLATION_KEY + " TEXT, "
-	                + ANSWER_KEY + " TEXT "
-	    			+ NAME_KEY + " TEXT )";
+	                + TRANSLATION_KEY + " TEXT) ";
 		 db.execSQL(CREATE_INDEX_TABLE);
 	  }
       // Adaugare angajat
@@ -87,9 +86,10 @@ public class DataB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues valori = new ContentValues();
+        valori.put(ANSWER_KEY, item.correctAnswer);
         valori.put(WORD_KEY, item.upperMessage); // Nume Angajat
         valori.put(TRANSLATION_KEY, item.translation);
-        valori.put(ANSWER_KEY, item.correctAnswer);
+
 
         // Inserare linie
         db.insert(PREFIX +tableName, null, valori);
@@ -113,7 +113,7 @@ public class DataB extends SQLiteOpenHelper {
 	  List<LearnItem> rez = new ArrayList<>();
       SQLiteDatabase db = this.getWritableDatabase();
 	  for(String table : selected){
-	      String selectQuery = "SELECT  * FROM " + table;
+	      String selectQuery = "SELECT  * FROM " + PREFIX +table;
 
 	      Cursor cursor = db.rawQuery(selectQuery, null);
 

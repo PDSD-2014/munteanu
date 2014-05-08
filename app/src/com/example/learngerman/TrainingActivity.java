@@ -9,10 +9,12 @@ import utils.MyAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TrainingActivity extends Activity {
 
@@ -45,6 +47,7 @@ public class TrainingActivity extends Activity {
 
 		if(!sel.isEmpty()){
 			toLearn = (ArrayList<LearnItem>) database.getSelectedItems(sel);
+			Log.d("Training", toLearn.toString());
 			totalItems = toLearn.size();
 			Button derButton = (Button)findViewById(R.id.derbutton);
 
@@ -52,7 +55,8 @@ public class TrainingActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					goNext(checkCorrect("Der"));
+					boolean rez = checkCorrect("Der");
+					goNext(rez);
 				}
 			});
 
@@ -82,7 +86,7 @@ public class TrainingActivity extends Activity {
 	}
 
 	public boolean checkCorrect(String type){
-		return currentItem.correctAnswer == type;
+		return currentItem.correctAnswer.compareTo(type) == 0;
 	}
 
 	public void goNext(boolean correct){
@@ -93,8 +97,14 @@ public class TrainingActivity extends Activity {
 		else{
 			toLearn.add(currentItem);
 		}
-		currentItem = toLearn.remove(0);
-		setData();
+		if(!toLearn.isEmpty()){
+			currentItem = toLearn.remove(0);
+			setData();
+		} else {
+			Toast t = Toast.makeText(this, "Test finished", Toast.LENGTH_SHORT);
+			t.show();
+		}
+
 	}
 
 	public void setData(){
@@ -109,5 +119,22 @@ public class TrainingActivity extends Activity {
 		TextView top = (TextView)findViewById(R.id.counter);
 
 		top.setText(counter + "/" + totalItems);
+	}
+
+	public Button getButtonByName(String name){
+		int Rid = -1;
+		Button rez = null;
+
+		if(name.compareTo("Der") == 0)
+			Rid = R.id.derbutton;
+		if(name.compareTo("Die") == 0)
+			Rid = R.id.diebutton;
+		if(name.compareTo("Das") == 0)
+			Rid = R.id.dasbutton;
+
+		if(Rid != -1){
+			rez = (Button)findViewById(Rid);
+		}
+		return rez;
 	}
 }
